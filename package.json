@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server",
     "dev": "nodemon server",
-    "build": "mkdir -p dist && cp -r src/* dist/"
+    "build": "echo 'No build needed for Vercel deployment'"
   },
   "author": "Bhavna Pandit",
   "license": "ISC",
