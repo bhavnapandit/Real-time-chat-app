@@ -58,8 +58,11 @@ function outputRoomName(room) {
 }
 
 function outputUsers(users) {
-  console.log(users)
-  usersList.innerHTML = `
-  ${users.map(user => `<li>${user.username}</li>`).join('')}
-  `
+  if (users.length === 0) {
+    usersList.innerHTML = '<li></li>';
+  } else {
+    usersList.innerHTML = `
+    ${users.map(user => `<li>${user.username}</li>`).join('')}
+    `
+  }
 }
