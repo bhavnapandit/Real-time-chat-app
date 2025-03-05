@@ -1,14 +1,20 @@
 const chatForm = document.getElementById("chat-form");
 const chatMessages = document.querySelector('.chat-messages');
-
+const roomName = document.getElementById('room-name');
+const usersList = document.getElementById('users');
 //get username
-const {username,room } = Qs.parse(location.search, {
+const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true
 })
 // Establish a connection to the socket.io server
 const socket = io();
 
-socket.emit('joinRoom',{username,room})
+socket.emit('joinRoom', { username, room })
+
+socket.on('roomUsers', ({ room, users }) => {
+  outputRoomName(room);
+  outputUsers(users);
+})
 
 
 // Listen for incoming messages from the server
@@ -45,4 +51,15 @@ function outputMessage(message) {
 
   // Scroll down after adding a new message
   chatMessages.scrollTop = chatMessages.scrollHeight; // Ensure scrolling works
+}
+
+function outputRoomName(room) {
+  roomName.innerText = room;
+}
+
+function outputUsers(users) {
+  console.log(users)
+  usersList.innerHTML = `
+  ${users.map(user => `<li>${user.username}</li>`).join('')}
+  `
 }
